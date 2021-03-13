@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface UserService {
     List<User> findAll();
+    User findByUserId(long id);
     User findByName(String name);
     void delete(long id);
     User save(User user);
-    User update(User user, long id);
+    Object update(User user, long id);
     public void deleteAll();
 }

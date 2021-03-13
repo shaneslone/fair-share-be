@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -35,6 +36,12 @@ public class User extends Auditable{
     @Email
     private String email;
 
+    @NotNull
+    private String firstname;
+
+    @NotNull
+    private String lastname;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();
@@ -42,10 +49,12 @@ public class User extends Auditable{
     public User() {
     }
 
-    public User(@NotNull String username, @NotNull String password, @NotNull @Email String email) {
+    public User(@NotNull String username, @NotNull String password, @NotNull @Email String email, @NotNull String firstname, @NotNull String lastname) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.firstname = firstname;
+        this.lastname = lastname;
     }
 
     public long getUserid() {
@@ -68,8 +77,13 @@ public class User extends Auditable{
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPasswordNoEncrypt(String password) {
         this.password = password;
+    }
+
+    public void setPassword(String password){
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        this.password = passwordEncoder.encode(password);
     }
 
     public String getEmail() {
@@ -78,6 +92,22 @@ public class User extends Auditable{
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFirstname() {
+        return firstname;
+    }
+
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
+    }
+
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public Set<UserRoles> getRoles() {
