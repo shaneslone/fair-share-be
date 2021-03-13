@@ -6,11 +6,14 @@ import me.shaneslone.fairshare.models.User;
 import me.shaneslone.fairshare.models.UserRoles;
 import me.shaneslone.fairshare.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
+@Service(value = "userService")
 public class UserServiceImpl implements UserService{
     @Autowired
     private UserRepository userRepository;
@@ -62,6 +65,7 @@ public class UserServiceImpl implements UserService{
         }
         newUser.setUsername(user.getUsername().toLowerCase());
         newUser.setPasswordNoEncrypt(user.getPassword());
+        newUser.setEmail(user.getEmail());
         newUser.setFirstname(user.getFirstname());
         newUser.setLastname(user.getLastname());
 

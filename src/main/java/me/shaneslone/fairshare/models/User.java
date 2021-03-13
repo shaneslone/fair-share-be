@@ -50,8 +50,8 @@ public class User extends Auditable{
     }
 
     public User(@NotNull String username, @NotNull String password, @NotNull @Email String email, @NotNull String firstname, @NotNull String lastname) {
-        this.username = username;
-        this.password = password;
+        setUsername(username);
+        setPassword(password);
         this.email = email;
         this.firstname = firstname;
         this.lastname = lastname;
@@ -70,7 +70,7 @@ public class User extends Auditable{
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.username = username.toLowerCase();
     }
 
     public String getPassword() {

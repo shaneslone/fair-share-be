@@ -3,18 +3,18 @@ package me.shaneslone.fairshare.services;
 import me.shaneslone.fairshare.exceptions.ResourceNotFoundException;
 import me.shaneslone.fairshare.models.Role;
 import me.shaneslone.fairshare.repositories.RoleRepository;
-import me.shaneslone.fairshare.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
+@Service(value = "roleService")
 public class RoleServiceImpl implements RoleService {
     @Autowired
     private RoleRepository roleRepository;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @Autowired
     private UserAuditing userAuditing;
