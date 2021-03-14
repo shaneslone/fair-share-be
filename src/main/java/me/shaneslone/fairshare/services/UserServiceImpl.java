@@ -58,16 +58,16 @@ public class UserServiceImpl implements UserService{
     @Override
     public User save(User user) {
         User newUser = new User();
-        if(user.getUserid() != 0){
-            userRepository.findById(user.getUserid())
-                    .orElseThrow(() -> new ResourceNotFoundException("User id " + user.getUserid() + " not found!"));
-            newUser.setUserid(user.getUserid());
+        if(user.getUserId() != 0){
+            userRepository.findById(user.getUserId())
+                    .orElseThrow(() -> new ResourceNotFoundException("User id " + user.getUserId() + " not found!"));
+            newUser.setUserId(user.getUserId());
         }
         newUser.setUsername(user.getUsername().toLowerCase());
         newUser.setPasswordNoEncrypt(user.getPassword());
         newUser.setEmail(user.getEmail());
-        newUser.setFirstname(user.getFirstname());
-        newUser.setLastname(user.getLastname());
+        newUser.setFirstName(user.getFirstName());
+        newUser.setLastName(user.getLastName());
 
         for(UserRoles ur : user.getRoles()) {
             Role addRole = roleService.findRoleById(ur.getRole().getRoleid());
@@ -92,11 +92,11 @@ public class UserServiceImpl implements UserService{
             if(user.getEmail() != null){
                 currentUser.setEmail(user.getEmail());
             }
-            if(user.getFirstname() != null){
-                currentUser.setFirstname(user.getFirstname());
+            if(user.getFirstName() != null){
+                currentUser.setFirstName(user.getFirstName());
             }
-            if(user.getLastname() != null){
-                currentUser.setLastname(user.getLastname());
+            if(user.getLastName() != null){
+                currentUser.setLastName(user.getLastName());
             }
             if(user.getRoles().size() > 0){
                 currentUser.getRoles().clear();

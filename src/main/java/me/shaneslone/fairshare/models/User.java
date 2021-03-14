@@ -21,7 +21,7 @@ import java.util.Set;
 public class User extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long userid;
+    private long userId;
 
     @NotNull
     @Column(unique = true)
@@ -37,10 +37,10 @@ public class User extends Auditable{
     private String email;
 
     @NotNull
-    private String firstname;
+    private String firstName;
 
     @NotNull
-    private String lastname;
+    private String lastName;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
@@ -49,20 +49,20 @@ public class User extends Auditable{
     public User() {
     }
 
-    public User(@NotNull String username, @NotNull String password, @NotNull @Email String email, @NotNull String firstname, @NotNull String lastname) {
+    public User(@NotNull String username, @NotNull String password, @NotNull @Email String email, @NotNull String firstName, @NotNull String lastName) {
         setUsername(username);
         setPassword(password);
         this.email = email;
-        this.firstname = firstname;
-        this.lastname = lastname;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
-    public long getUserid() {
-        return userid;
+    public long getUserId() {
+        return userId;
     }
 
-    public void setUserid(long userid) {
-        this.userid = userid;
+    public void setUserId(long userid) {
+        this.userId = userid;
     }
 
     public String getUsername() {
@@ -94,20 +94,20 @@ public class User extends Auditable{
         this.email = email;
     }
 
-    public String getFirstname() {
-        return firstname;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
+    public void setFirstName(String firstname) {
+        this.firstName = firstname;
     }
 
-    public String getLastname() {
-        return lastname;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastname(String lastname) {
-        this.lastname = lastname;
+    public void setLastName(String lastname) {
+        this.lastName = lastname;
     }
 
     public Set<UserRoles> getRoles() {

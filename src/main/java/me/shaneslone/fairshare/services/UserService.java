@@ -11,5 +11,5 @@ public interface UserService {
     void delete(long id);
     User save(User user);
     Object update(User user, long id);
-    public void deleteAll();
+    void deleteAll();
 }

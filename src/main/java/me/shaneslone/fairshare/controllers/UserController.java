@@ -48,12 +48,12 @@ public class UserController {
 
     @PostMapping(value = "/user", consumes = "application/json")
     public ResponseEntity<?> addNewUser(@Valid @RequestBody User newuser){
-        newuser.setUserid(0);
+        newuser.setUserId(0);
         newuser = userService.save(newuser);
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newUserURI = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{userid}")
-                .buildAndExpand(newuser.getUserid())
+                .buildAndExpand(newuser.getUserId())
                 .toUri();
         responseHeaders.setLocation(newUserURI);
         return new ResponseEntity<>(newuser, responseHeaders, HttpStatus.CREATED);
@@ -61,7 +61,7 @@ public class UserController {
 
     @PutMapping(value = "/user/{userid}", consumes = "application/json")
     public ResponseEntity<?> updateFullUser(@Valid @RequestBody User updateUser, @PathVariable long userid){
-        updateUser.setUserid(userid);
+        updateUser.setUserId(userid);
         updateUser = userService.save(updateUser);
 
         return new ResponseEntity<>(updateUser, HttpStatus.OK);

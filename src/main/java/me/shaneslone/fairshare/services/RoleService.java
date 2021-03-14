@@ -9,7 +9,7 @@ public interface RoleService {
     Role findRoleById(long id);
     Role save(Role role);
     Role findByName(String name);
-    public void deleteAll();
+    void deleteAll();
     Role update(Role role, long id);
 
 }
