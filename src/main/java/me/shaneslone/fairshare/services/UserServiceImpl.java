@@ -68,6 +68,7 @@ public class UserServiceImpl implements UserService{
         newUser.setEmail(user.getEmail());
         newUser.setFirstName(user.getFirstName());
         newUser.setLastName(user.getLastName());
+        newUser.setHousehold(user.getHousehold());
 
         for(UserRoles ur : user.getRoles()) {
             Role addRole = roleService.findRoleById(ur.getRole().getRoleId());

@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class Bill  extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long billId;
+    private long billid;
 
     @NotNull
     private String type;
@@ -22,15 +22,15 @@ public class Bill  extends Auditable{
 
     private boolean isRecurring;
 
-    private int dueDate;
+    private long dueDate;
 
     private boolean isPaid;
 
     private String website;
 
     @ManyToOne
-    @JoinColumn(name = "monthyBillId")
-    @JsonIgnoreProperties(value = "bills", allowSetters = true)
+    @JoinColumn(name = "monthlybillid")
+    @JsonIgnoreProperties(value = "monthlyBill", allowSetters = true)
     private MonthlyBill monthlyBill;
 
     public Bill() {
@@ -40,7 +40,7 @@ public class Bill  extends Auditable{
                 @NotNull String compnayName,
                 double ammount,
                 boolean isRecurring,
-                int dueDate,
+                long dueDate,
                 boolean isPaid,
                 String website) {
         this.type = type;
@@ -52,12 +52,12 @@ public class Bill  extends Auditable{
         this.website = website;
     }
 
-    public long getBillId() {
-        return billId;
+    public long getBillid() {
+        return billid;
     }
 
-    public void setBillId(long billId) {
-        this.billId = billId;
+    public void setBillid(long billId) {
+        this.billid = billId;
     }
 
     public String getType() {
@@ -92,11 +92,11 @@ public class Bill  extends Auditable{
         this.isRecurring = recurring;
     }
 
-    public int getDueDate() {
-        return dueDate;
+    public long getDueDate() {
+        return this.dueDate;
     }
 
-    public void setDueDate(int dueDate) {
+    public void setDueDate(long dueDate) {
         this.dueDate = dueDate;
     }
 

@@ -37,10 +37,10 @@ public class BillServiceImpl implements BillService {
     @Override
     public Bill save(Bill bill) {
         Bill newBill = new Bill();
-        if(bill.getBillId() != 0){
-            billRepository.findById(bill.getBillId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Bill id " + bill.getBillId() + " not found!"));
-            newBill.setBillId(bill.getBillId());
+        if(bill.getBillid() != 0){
+            billRepository.findById(bill.getBillid())
+                    .orElseThrow(() -> new ResourceNotFoundException("Bill id " + bill.getBillid() + " not found!"));
+            newBill.setBillid(bill.getBillid());
         }
         newBill.setType(bill.getType());
         newBill.setCompnayName(bill.getCompnayName());
@@ -49,6 +49,7 @@ public class BillServiceImpl implements BillService {
         newBill.setDueDate(bill.getDueDate());
         newBill.setIsRecurring(bill.getIsRecurring());
         newBill.setWebsite(bill.getWebsite());
+        newBill.setMonthlyBill(bill.getMonthlyBill());
 
         return billRepository.save(newBill);
     }

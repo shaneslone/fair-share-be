@@ -12,19 +12,19 @@ import java.util.List;
 public class MonthlyBill extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long monthlyBillId;
+    private long monthlybillid;
 
     @NotNull
     private String month;
 
     private int year;
 
-    @OneToMany(mappedBy = "monthlybill", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "monthlybill", allowSetters = true)
+    @OneToMany(mappedBy = "monthlyBill", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "monthlyBill", allowSetters = true)
     private List<Bill> bills = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "householdId")
+    @JoinColumn(name = "householdid")
     @JsonIgnoreProperties(value = "monthlyBills", allowSetters = true)
     private Household household;
 
@@ -36,12 +36,12 @@ public class MonthlyBill extends Auditable{
         this.year = year;
     }
 
-    public long getMonthlyBillId() {
-        return monthlyBillId;
+    public long getMonthlybillid() {
+        return monthlybillid;
     }
 
-    public void setMonthlyBillId(long monthlyBillId) {
-        this.monthlyBillId = monthlyBillId;
+    public void setMonthlybillid(long monthlyBillId) {
+        this.monthlybillid = monthlyBillId;
     }
 
     public String getMonth() {
@@ -66,5 +66,13 @@ public class MonthlyBill extends Auditable{
 
     public void setBills(List<Bill> bills) {
         this.bills = bills;
+    }
+
+    public Household getHousehold() {
+        return household;
+    }
+
+    public void setHousehold(Household household) {
+        this.household = household;
     }
 }
