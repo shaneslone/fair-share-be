@@ -77,12 +77,12 @@ public class Bill  extends Auditable{
         this.ammount = ammount;
     }
 
-    public boolean isRecurring() {
-        return isRecurring;
+    public boolean getIsRecurring() {
+        return this.isRecurring;
     }
 
-    public void setRecurring(boolean recurring) {
-        isRecurring = recurring;
+    public void setIsRecurring(boolean recurring) {
+        this.isRecurring = recurring;
     }
 
     public int getDueDate() {
@@ -93,12 +93,12 @@ public class Bill  extends Auditable{
         this.dueDate = dueDate;
     }
 
-    public boolean isPaid() {
-        return isPaid;
+    public boolean getIsPaid() {
+        return this.isPaid;
     }
 
-    public void setPaid(boolean paid) {
-        isPaid = paid;
+    public void setIsPaid(boolean paid) {
+        this.isPaid = paid;
     }
 
     public String getWebsite() {
