@@ -70,7 +70,7 @@ public class UserServiceImpl implements UserService{
         newUser.setLastName(user.getLastName());
 
         for(UserRoles ur : user.getRoles()) {
-            Role addRole = roleService.findRoleById(ur.getRole().getRoleid());
+            Role addRole = roleService.findRoleById(ur.getRole().getRoleId());
             newUser.getRoles().add(new UserRoles(newUser, addRole));
         }
 
@@ -101,7 +101,7 @@ public class UserServiceImpl implements UserService{
             if(user.getRoles().size() > 0){
                 currentUser.getRoles().clear();
                 for(UserRoles ur : user.getRoles()){
-                    Role addRole = roleService.findRoleById(ur.getRole().getRoleid());
+                    Role addRole = roleService.findRoleById(ur.getRole().getRoleId());
                     currentUser.getRoles().add(new UserRoles(currentUser, addRole));
                 }
             }

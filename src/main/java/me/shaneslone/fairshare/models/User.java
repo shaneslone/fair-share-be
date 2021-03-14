@@ -46,6 +46,11 @@ public class User extends Auditable{
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<UserRoles> roles = new HashSet<>();
 
+    @ManyToOne
+    @JoinColumn(name = "householdId")
+    @JsonIgnoreProperties(value = "users", allowSetters = true)
+    private Household household;
+
     public User() {
     }
 

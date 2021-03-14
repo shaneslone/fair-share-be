@@ -13,14 +13,14 @@ public class UserRoles extends Auditable implements Serializable {
     @Id
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "userid")
+    @JoinColumn(name = "userId")
     @JsonIgnoreProperties(value = "roles", allowSetters = true)
     private User user;
 
     @Id
     @ManyToOne
     @NotNull
-    @JoinColumn(name = "roleid")
+    @JoinColumn(name = "roleId")
     @JsonIgnoreProperties(value = "users", allowSetters = true)
     private Role role;
 
@@ -61,7 +61,7 @@ public class UserRoles extends Auditable implements Serializable {
         }
         UserRoles that = (UserRoles) o;
         return ((user == null) ? 0 : user.getUserId()) == ((that.user == null) ? 0 : that.user.getUserId()) &&
-                ((role == null) ? 0 : role.getRoleid()) == ((that.role == null) ? 0 : that.role.getRoleid());
+                ((role == null) ? 0 : role.getRoleId()) == ((that.role == null) ? 0 : that.role.getRoleId());
     }
     @Override
     public int hashCode()

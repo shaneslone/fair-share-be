@@ -1,6 +1,5 @@
 package me.shaneslone.fairshare.services;
 
-import me.shaneslone.fairshare.exceptions.ResourceNotFoundException;
 import me.shaneslone.fairshare.models.ValidationError;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.security.core.Authentication;

@@ -1,5 +1,7 @@
 package me.shaneslone.fairshare.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
@@ -25,6 +27,11 @@ public class Bill  extends Auditable{
     private boolean isPaid;
 
     private String website;
+
+    @ManyToOne
+    @JoinColumn(name = "monthyBillId")
+    @JsonIgnoreProperties(value = "bills", allowSetters = true)
+    private MonthlyBill monthlyBill;
 
     public Bill() {
     }
@@ -107,5 +114,13 @@ public class Bill  extends Auditable{
 
     public void setWebsite(String website) {
         this.website = website;
+    }
+
+    public MonthlyBill getMonthlyBill() {
+        return monthlyBill;
+    }
+
+    public void setMonthlyBill(MonthlyBill monthlyBill) {
+        this.monthlyBill = monthlyBill;
     }
 }
