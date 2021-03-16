@@ -51,7 +51,7 @@ public class SeedData implements CommandLineRunner {
         u1 = userService.save(u1);
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, 2021);
+        c.set(Calendar.YEAR, 2025);
         c.set(Calendar.MONTH, Calendar.MARCH);
         c.set(Calendar.DAY_OF_MONTH, 20);
 
@@ -61,7 +61,7 @@ public class SeedData implements CommandLineRunner {
                 false,
                 c.getTime().getTime(),
                 false,
-                null);
+                "https://www.kentuckypower.com/");
 
         MonthlyBill mb1 = new MonthlyBill("March", 2021);
         mb1.getBills().add(b1);

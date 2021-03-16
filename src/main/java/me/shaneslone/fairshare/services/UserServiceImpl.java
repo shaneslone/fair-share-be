@@ -99,6 +99,9 @@ public class UserServiceImpl implements UserService{
             if(user.getLastName() != null){
                 currentUser.setLastName(user.getLastName());
             }
+            if(user.getHousehold() != null){
+                currentUser.setHousehold(user.getHousehold());
+            }
             if(user.getRoles().size() > 0){
                 currentUser.getRoles().clear();
                 for(UserRoles ur : user.getRoles()){
