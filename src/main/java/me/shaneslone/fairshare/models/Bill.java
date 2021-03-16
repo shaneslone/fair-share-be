@@ -30,7 +30,7 @@ public class Bill  extends Auditable{
 
     @ManyToOne
     @JoinColumn(name = "monthlybillid")
-    @JsonIgnoreProperties(value = "monthlyBill", allowSetters = true)
+    @JsonIgnoreProperties(value = "bills", allowSetters = true)
     private MonthlyBill monthlyBill;
 
     public Bill() {

@@ -33,7 +33,7 @@ public class BillController {
         return new ResponseEntity<>(bill, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/bill", consumes = "application/json")
+    @PostMapping(value = "/bill", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> addNewBill(@Valid @RequestBody Bill newbill){
         newbill.setBillid(0);
         newbill = billService.save(newbill);
@@ -46,7 +46,7 @@ public class BillController {
         return new ResponseEntity<>(newbill, responseHeaders, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/bill/{billid}", consumes = "application/json")
+    @PutMapping(value = "/bill/{billid}", consumes = "application/json", produces = "application/json")
     public  ResponseEntity<?> updateFullBill(@Valid @RequestBody Bill updateBill, @PathVariable long billid){
         updateBill.setBillid(billid);
         updateBill = billService.save(updateBill);
