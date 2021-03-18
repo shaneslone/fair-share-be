@@ -22,6 +22,9 @@ public class HouseholdServiceImpl implements HouseholdService {
     @Autowired
     private MonthlyBillService monthlyBillService;
 
+    @Autowired
+    private HelperFunctions helperFunctions;
+
     @Override
     public List<Household> findAll() {
         List<Household> households = new ArrayList<>();
@@ -61,11 +64,6 @@ public class HouseholdServiceImpl implements HouseholdService {
             newHousehold.getMonthlyBills().add(mb);
         }
         return householdRepository.save(newHousehold);
-    }
-
-    @Override
-    public Household update(Household household) {
-        return null;
     }
 
     @Override

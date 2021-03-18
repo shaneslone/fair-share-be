@@ -14,19 +14,19 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/households")
+@RequestMapping("/households")
 public class HouseholdController {
 
     @Autowired
     private HouseholdService householdService;
 
-    @GetMapping(name = "/households", produces = "application/json")
+    @GetMapping(value = "/households", produces = "application/json")
     public ResponseEntity<?> listAllHouseholds(){
         List<Household> households = householdService.findAll();
         return new ResponseEntity<>(households, HttpStatus.OK);
     }
 
-    @GetMapping(name = "/household/{householdid}", produces = "application/json")
+    @GetMapping(value = "/household/{householdid}", produces = "application/json")
     public ResponseEntity<?> getHouseholdById(@PathVariable long householdid){
         Household household = householdService.findByHouseholdId(householdid);
         return new ResponseEntity<>(household, HttpStatus.OK);
@@ -42,10 +42,10 @@ public class HouseholdController {
                 .buildAndExpand()
                 .toUri();
         responseHeaders.setLocation(newHouseholdURI);
-        return new ResponseEntity<>(newHousehold, HttpStatus.OK);
+        return new ResponseEntity<>(newHousehold, responseHeaders, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/household/{householdid}", consumes = "application/json", produces = "application/sjon")
+    @PutMapping(value = "/household/{householdid}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> updateFullHousehold(@Valid @RequestBody Household updateHousehold, @PathVariable long householdid){
         updateHousehold.setHouseholdid(householdid);
         updateHousehold = householdService.save(updateHousehold);

@@ -18,6 +18,9 @@ public class MonthlyBillServiceImpl implements MonthlyBillService{
     @Autowired
     private BillService billService;
 
+    @Autowired
+    private HelperFunctions helperFunctions;
+
     @Override
     public List<MonthlyBill> findAll() {
         List<MonthlyBill> monthlyBills = new ArrayList<>();
@@ -61,8 +64,30 @@ public class MonthlyBillServiceImpl implements MonthlyBillService{
     }
 
     @Override
-    public MonthlyBill update(MonthlyBill monthlyBill) {
-        return null;
+    public MonthlyBill update(MonthlyBill monthlyBill, long id) {
+        MonthlyBill currentMonthlyBIll = findByMonthlyBillId(id);
+        if(helperFunctions.isHouseholdMember(currentMonthlyBIll.getHousehold().getUsers())){
+            if(monthlyBill.getMonth() != null){
+                currentMonthlyBIll.setMonth(monthlyBill.getMonth());
+            }
+            if(monthlyBill.getYear() > 0){
+                currentMonthlyBIll.setYear(monthlyBill.getYear());
+            }
+            if(monthlyBill.getBills().size() > 0){
+                currentMonthlyBIll.getBills().clear();
+                for(Bill b: monthlyBill.getBills()){
+                    b.setMonthlyBill(currentMonthlyBIll);
+                    b = billService.save(b);
+                    currentMonthlyBIll.getBills().add(b);
+                }
+            }
+            if(monthlyBill.getHousehold() != null){
+                currentMonthlyBIll.setHousehold(monthlyBill.getHousehold());
+            }
+            return monthlyBillRepository.save(currentMonthlyBIll);
+        } else {
+            throw new ResourceNotFoundException("User is not authorized to make this change!");
+        }
     }
 
     @Override

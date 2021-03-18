@@ -9,6 +9,5 @@ public interface HouseholdService {
     Household findByHouseholdId(long id);
     void delete(long id);
     Household save(Household household);
-    Household update(Household household);
     void deleteAll();
 }

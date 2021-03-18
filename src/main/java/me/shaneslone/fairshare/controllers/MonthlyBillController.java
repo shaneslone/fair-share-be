@@ -53,6 +53,12 @@ public class MonthlyBillController {
         return new ResponseEntity<>(updateMonthlyBill, HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/monthlybill/{monthlybillid}", consumes = "application/json", produces = "application/json")
+    public ResponseEntity<?> updateMonthlyBill(@RequestBody MonthlyBill updateMonthlyBill, @PathVariable long monthlybillid){
+        updateMonthlyBill = monthlyBillService.update(updateMonthlyBill, monthlybillid);
+        return new ResponseEntity<>(updateMonthlyBill, HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "monthlybill/{monthlybillid}", consumes = "application/json")
     public ResponseEntity<?> deleteMonthlyBillById(@PathVariable long monthlybillid){
         monthlyBillService.delete(monthlybillid);

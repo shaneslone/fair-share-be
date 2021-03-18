@@ -73,5 +73,8 @@ public class SeedData implements CommandLineRunner {
         u1.setHousehold(h1);
         userService.save(u1);
 
+        User u2 = new User("shaneslone2", "test", "test@test.com", "Shane", "Slone");
+        userService.save(u2);
+
     }
 }

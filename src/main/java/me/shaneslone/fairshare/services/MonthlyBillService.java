@@ -9,6 +9,6 @@ public interface MonthlyBillService {
     MonthlyBill findByMonthlyBillId(long id);
     void delete(long id);
     MonthlyBill save(MonthlyBill monthlyBill);
-    MonthlyBill update(MonthlyBill monthlyBill);
+    MonthlyBill update(MonthlyBill monthlyBill, long id);
     void deleteAll();
 }

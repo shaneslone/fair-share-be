@@ -1,7 +1,9 @@
 package me.shaneslone.fairshare.services;
 
+import me.shaneslone.fairshare.models.User;
 import me.shaneslone.fairshare.models.ValidationError;
 import org.hibernate.exception.ConstraintViolationException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,11 +13,15 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service(value = "helperFunctions")
 public class HelperFunctionsImpl
         implements HelperFunctions
 {
+    @Autowired
+    private UserService userService;
+
     public List<ValidationError> getConstraintViolation(Throwable cause)
     {
         // Find any data violations that might be associated with the error and report them
@@ -82,4 +88,13 @@ public class HelperFunctionsImpl
 
     }
 
+    @Override
+    public boolean isHouseholdMember(Set<User> householdMembers) {
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
+        // find the current authenticated user
+        User currentUser = userService.findByName(authentication.getName());
+        // returns true if the current user is a member of the household or has the role of admin
+        return householdMembers.contains(currentUser) || currentUser.getAuthority().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+    }
 }
