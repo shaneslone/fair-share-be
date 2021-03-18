@@ -25,7 +25,7 @@ public class MonthlyBill extends Auditable{
 
     @ManyToOne
     @JoinColumn(name = "householdid")
-    @JsonIgnoreProperties(value = "monthlyBills", allowSetters = true)
+    @JsonIgnoreProperties(value = {"monthlyBills", "users"}, allowSetters = true)
     private Household household;
 
     public MonthlyBill() {

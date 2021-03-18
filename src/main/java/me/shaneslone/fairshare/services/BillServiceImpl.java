@@ -13,6 +13,9 @@ import java.util.List;
 public class BillServiceImpl implements BillService {
     @Autowired
     private BillRepository billRepository;
+    
+    @Autowired
+    private HelperFunctions helperFunctions;
 
     @Override
     public List<Bill> findAll() {
@@ -43,8 +46,8 @@ public class BillServiceImpl implements BillService {
             newBill.setBillid(bill.getBillid());
         }
         newBill.setType(bill.getType());
-        newBill.setCompnayName(bill.getCompnayName());
-        newBill.setAmmount(bill.getAmmount());
+        newBill.setCompanyName(bill.getCompanyName());
+        newBill.setAmount(bill.getAmount());
         newBill.setIsPaid(bill.getIsPaid());
         newBill.setDueDate(bill.getDueDate());
         newBill.setIsRecurring(bill.getIsRecurring());
@@ -56,7 +59,30 @@ public class BillServiceImpl implements BillService {
 
     @Override
     public Bill update(Bill bill, long id) {
-        return null;
+        Bill currentBill = findByBillId(id);
+        if(helperFunctions.isHouseholdMember(currentBill.getMonthlyBill().getHousehold().getUsers())){
+            if(bill.getType() != null){
+                currentBill.setType(bill.getType());
+            }
+            if(bill.getCompanyName() != null){
+                currentBill.setCompanyName(bill.getCompanyName());
+            }
+            if(bill.getAmount() > 0){
+                currentBill.setAmount(bill.getAmount());
+            }
+            if(bill.getDueDate() > 0){
+                currentBill.setDueDate(bill.getDueDate());
+            }
+            if(bill.getWebsite() != null){
+                currentBill.setWebsite(bill.getWebsite());
+            }
+            if(bill.getMonthlyBill() != null){
+                currentBill.setMonthlyBill(bill.getMonthlyBill());
+            }
+            return billRepository.save(currentBill);
+        } else {
+            throw new ResourceNotFoundException("User is not authorized to make change!");
+        }
     }
 
     @Override

@@ -7,6 +7,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "bills")
+@JsonIgnoreProperties(value = "monthlyBill", allowSetters = true)
 public class Bill  extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,9 +17,9 @@ public class Bill  extends Auditable{
     private String type;
 
     @NotNull
-    private String compnayName;
+    private String companyName;
 
-    private double ammount;
+    private double amount;
 
     private boolean isRecurring;
 
@@ -37,15 +38,15 @@ public class Bill  extends Auditable{
     }
 
     public Bill(@NotNull String type,
-                @NotNull String compnayName,
-                double ammount,
+                @NotNull String companyName,
+                double amount,
                 boolean isRecurring,
                 long dueDate,
                 boolean isPaid,
                 String website) {
         this.type = type;
-        this.compnayName = compnayName;
-        this.ammount = ammount;
+        this.companyName = companyName;
+        this.amount = amount;
         this.isRecurring = isRecurring;
         this.dueDate = dueDate;
         this.isPaid = isPaid;
@@ -68,20 +69,20 @@ public class Bill  extends Auditable{
         this.type = type;
     }
 
-    public String getCompnayName() {
-        return compnayName;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompnayName(String compnayName) {
-        this.compnayName = compnayName;
+    public void setCompanyName(String compnayName) {
+        this.companyName = compnayName;
     }
 
-    public double getAmmount() {
-        return ammount;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setAmmount(double ammount) {
-        this.ammount = ammount;
+    public void setAmount(double ammount) {
+        this.amount = ammount;
     }
 
     public boolean getIsRecurring() {
