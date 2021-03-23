@@ -1,6 +1,7 @@
 package me.shaneslone.fairshare.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,10 +22,12 @@ public class Bill  extends Auditable{
 
     private double amount;
 
+    @JsonProperty
     private boolean isRecurring;
 
     private long dueDate;
 
+    @JsonProperty
     private boolean isPaid;
 
     private String website;
@@ -85,14 +88,6 @@ public class Bill  extends Auditable{
         this.amount = ammount;
     }
 
-    public boolean getIsRecurring() {
-        return this.isRecurring;
-    }
-
-    public void setIsRecurring(boolean recurring) {
-        this.isRecurring = recurring;
-    }
-
     public long getDueDate() {
         return this.dueDate;
     }
@@ -101,12 +96,20 @@ public class Bill  extends Auditable{
         this.dueDate = dueDate;
     }
 
-    public boolean getIsPaid() {
-        return this.isPaid;
+    public boolean isRecurring() {
+        return isRecurring;
     }
 
-    public void setIsPaid(boolean paid) {
-        this.isPaid = paid;
+    public void setRecurring(boolean recurring) {
+        isRecurring = recurring;
+    }
+
+    public boolean isPaid() {
+        return isPaid;
+    }
+
+    public void setPaid(boolean paid) {
+        isPaid = paid;
     }
 
     public String getWebsite() {

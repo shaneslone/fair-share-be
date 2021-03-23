@@ -63,7 +63,7 @@ public class SeedData implements CommandLineRunner {
                 false,
                 "https://www.kentuckypower.com/");
 
-        MonthlyBill mb1 = new MonthlyBill("March", 2021);
+        MonthlyBill mb1 = new MonthlyBill(c.getTime().getTime());
         mb1.getBills().add(b1);
 
 

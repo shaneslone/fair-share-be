@@ -49,8 +49,7 @@ public class MonthlyBillServiceImpl implements MonthlyBillService{
                     .orElseThrow(() -> new ResourceNotFoundException("Monthly Bill Id " + monthlyBill.getMonthlybillid() + " not found!"));
             newMonthlyBill.setMonthlybillid(monthlyBill.getMonthlybillid());
         }
-        newMonthlyBill.setMonth(monthlyBill.getMonth());
-        newMonthlyBill.setYear(monthlyBill.getYear());
+       newMonthlyBill.setDate(monthlyBill.getDate());
         newMonthlyBill.setHousehold(monthlyBill.getHousehold());
 
         newMonthlyBill = monthlyBillRepository.save(newMonthlyBill);
@@ -65,26 +64,23 @@ public class MonthlyBillServiceImpl implements MonthlyBillService{
 
     @Override
     public MonthlyBill update(MonthlyBill monthlyBill, long id) {
-        MonthlyBill currentMonthlyBIll = findByMonthlyBillId(id);
-        if(helperFunctions.isHouseholdMember(currentMonthlyBIll.getHousehold().getUsers())){
-            if(monthlyBill.getMonth() != null){
-                currentMonthlyBIll.setMonth(monthlyBill.getMonth());
-            }
-            if(monthlyBill.getYear() > 0){
-                currentMonthlyBIll.setYear(monthlyBill.getYear());
+        MonthlyBill currentMonthlyBill = findByMonthlyBillId(id);
+        if(helperFunctions.isHouseholdMember(currentMonthlyBill.getHousehold().getUsers())){
+            if(monthlyBill.getDate() > 0){
+                currentMonthlyBill.setDate(monthlyBill.getDate());
             }
             if(monthlyBill.getBills().size() > 0){
-                currentMonthlyBIll.getBills().clear();
+                currentMonthlyBill.getBills().clear();
                 for(Bill b: monthlyBill.getBills()){
-                    b.setMonthlyBill(currentMonthlyBIll);
+                    b.setMonthlyBill(currentMonthlyBill);
                     b = billService.save(b);
-                    currentMonthlyBIll.getBills().add(b);
+                    currentMonthlyBill.getBills().add(b);
                 }
             }
             if(monthlyBill.getHousehold() != null){
-                currentMonthlyBIll.setHousehold(monthlyBill.getHousehold());
+                currentMonthlyBill.setHousehold(monthlyBill.getHousehold());
             }
-            return monthlyBillRepository.save(currentMonthlyBIll);
+            return monthlyBillRepository.save(currentMonthlyBill);
         } else {
             throw new ResourceNotFoundException("User is not authorized to make this change!");
         }

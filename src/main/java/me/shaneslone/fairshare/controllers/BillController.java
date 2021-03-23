@@ -59,6 +59,13 @@ public class BillController {
         return new ResponseEntity<>(updateBill, HttpStatus.OK);
     }
 
+    @PatchMapping(value = "/bill/{billid}/updatepaid")
+    public ResponseEntity<?> updatePaid(@RequestBody Bill updateBill, @PathVariable long billid){
+        boolean paid = updateBill.isPaid();
+        billService.setPaid(paid, billid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/bill/{billid}", consumes = "application/json")
     public ResponseEntity<?> deleteBillById(@PathVariable long billid){
         billService.delete(billid);

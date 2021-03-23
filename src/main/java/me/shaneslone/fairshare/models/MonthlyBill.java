@@ -3,7 +3,6 @@ package me.shaneslone.fairshare.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,10 +13,7 @@ public class MonthlyBill extends Auditable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long monthlybillid;
 
-    @NotNull
-    private String month;
-
-    private int year;
+    private long date;
 
     @OneToMany(mappedBy = "monthlyBill", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "monthlyBill", allowSetters = true)
@@ -31,9 +27,8 @@ public class MonthlyBill extends Auditable{
     public MonthlyBill() {
     }
 
-    public MonthlyBill(@NotNull String month, int year) {
-        this.month = month;
-        this.year = year;
+    public MonthlyBill(long date) {
+        this.date = date;
     }
 
     public long getMonthlybillid() {
@@ -44,20 +39,13 @@ public class MonthlyBill extends Auditable{
         this.monthlybillid = monthlyBillId;
     }
 
-    public String getMonth() {
-        return month;
+
+    public long getDate() {
+        return date;
     }
 
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
+    public void setDate(long date) {
+        this.date = date;
     }
 
     public List<Bill> getBills() {
