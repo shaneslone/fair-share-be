@@ -51,11 +51,11 @@ public class SeedData implements CommandLineRunner {
         u1 = userService.save(u1);
 
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, 2025);
+        c.set(Calendar.YEAR, 2021);
         c.set(Calendar.MONTH, Calendar.MARCH);
         c.set(Calendar.DAY_OF_MONTH, 20);
 
-        Bill b1 = new Bill("Power",
+        Bill b1 = new Bill("⚡️ Electric",
                 "Kentucky Power",
                 91.32,
                 false,

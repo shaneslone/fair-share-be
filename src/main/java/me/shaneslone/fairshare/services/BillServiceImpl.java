@@ -48,7 +48,7 @@ public class BillServiceImpl implements BillService {
         newBill.setType(bill.getType());
         newBill.setCompanyName(bill.getCompanyName());
         newBill.setAmount(bill.getAmount());
-        newBill.setPaid(bill.isRecurring());
+        newBill.setPaid(bill.isPaid());
         newBill.setDueDate(bill.getDueDate());
         newBill.setRecurring(bill.isRecurring());
         newBill.setWebsite(bill.getWebsite());
@@ -86,11 +86,11 @@ public class BillServiceImpl implements BillService {
     }
 
     @Override
-    public void setPaid(boolean paid, long id) {
+    public Bill setPaid(boolean paid, long id) {
         Bill currentBill = findByBillId(id);
         if(helperFunctions.isHouseholdMember(currentBill.getMonthlyBill().getHousehold().getUsers())){
             currentBill.setPaid(paid);
-            billRepository.save(currentBill);
+            return billRepository.save(currentBill);
         } else {
             throw new ResourceNotFoundException("User is not authorized to make change!");
         }

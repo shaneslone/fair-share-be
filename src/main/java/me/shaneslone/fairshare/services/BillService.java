@@ -10,6 +10,6 @@ public interface BillService {
     void delete(long id);
     Bill save(Bill bill);
     Bill update(Bill bill, long id);
-    void setPaid(boolean paid, long id);
+    Bill setPaid(boolean paid, long id);
     void deleteAll();
 }
