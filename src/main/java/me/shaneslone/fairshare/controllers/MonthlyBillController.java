@@ -59,7 +59,7 @@ public class MonthlyBillController {
         return new ResponseEntity<>(updateMonthlyBill, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "monthlybill/{monthlybillid}", consumes = "application/json")
+    @DeleteMapping(value = "monthlybill/{monthlybillid}")
     public ResponseEntity<?> deleteMonthlyBillById(@PathVariable long monthlybillid){
         monthlyBillService.delete(monthlybillid);
         return new ResponseEntity<>(HttpStatus.OK);

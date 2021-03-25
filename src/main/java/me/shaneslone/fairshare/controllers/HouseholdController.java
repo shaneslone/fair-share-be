@@ -52,7 +52,7 @@ public class HouseholdController {
         return new ResponseEntity<>(updateHousehold, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/household/{householdid}", consumes = "application/json")
+    @DeleteMapping(value = "/household/{householdid}")
     public ResponseEntity<?> deleteHouseholdById(@PathVariable long householdid){
         householdService.delete(householdid);
         return new ResponseEntity<>(HttpStatus.OK);

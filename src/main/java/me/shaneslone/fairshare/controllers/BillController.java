@@ -65,7 +65,7 @@ public class BillController {
         return new ResponseEntity<>(updateBill, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/bill/{billid}", consumes = "application/json")
+    @DeleteMapping(value = "/bill/{billid}")
     public ResponseEntity<?> deleteBillById(@PathVariable long billid){
         billService.delete(billid);
         return new ResponseEntity<>(HttpStatus.OK);
