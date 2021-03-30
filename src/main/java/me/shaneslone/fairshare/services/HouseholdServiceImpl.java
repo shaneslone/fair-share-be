@@ -39,6 +39,15 @@ public class HouseholdServiceImpl implements HouseholdService {
     }
 
     @Override
+    public Household findByHouseholdKey(String key) {
+        Household h = householdRepository.findHouseholdByHouseholdKey(key);
+        if(h == null){
+            throw new ResourceNotFoundException("Household with key " + key + " not found!");
+        }
+        return h;
+    }
+
+    @Override
     public void delete(long id) {
         householdRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Household id " + id + " not found!"));
