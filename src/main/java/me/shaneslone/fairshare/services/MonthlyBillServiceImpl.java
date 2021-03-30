@@ -52,8 +52,6 @@ public class MonthlyBillServiceImpl implements MonthlyBillService{
        newMonthlyBill.setDate(monthlyBill.getDate());
         newMonthlyBill.setHousehold(monthlyBill.getHousehold());
 
-        newMonthlyBill = monthlyBillRepository.save(newMonthlyBill);
-
         for(Bill b : monthlyBill.getBills()){
             b.setMonthlyBill(newMonthlyBill);
             b = billService.save(b);

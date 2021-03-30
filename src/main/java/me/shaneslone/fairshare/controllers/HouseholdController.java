@@ -1,11 +1,14 @@
 package me.shaneslone.fairshare.controllers;
 
 import me.shaneslone.fairshare.models.Household;
+import me.shaneslone.fairshare.models.User;
 import me.shaneslone.fairshare.services.HouseholdService;
+import me.shaneslone.fairshare.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -19,6 +22,9 @@ public class HouseholdController {
 
     @Autowired
     private HouseholdService householdService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping(value = "/households", produces = "application/json")
     public ResponseEntity<?> listAllHouseholds(){
@@ -50,6 +56,15 @@ public class HouseholdController {
         updateHousehold.setHouseholdid(householdid);
         updateHousehold = householdService.save(updateHousehold);
         return new ResponseEntity<>(updateHousehold, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/household/{householdkey}/adduser", produces = "application/json")
+    public ResponseEntity<?> addUserToHousehold(@PathVariable String householdkey, Authentication authentication){
+        Household household = householdService.findByHouseholdKey(householdkey);
+        User user = userService.findByName(authentication.getName());
+        household.getUsers().add(user);
+        household = householdService.save(household);
+        return new ResponseEntity<>(household, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/household/{householdid}")

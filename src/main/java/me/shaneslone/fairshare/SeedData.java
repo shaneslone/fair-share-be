@@ -83,7 +83,6 @@ public class SeedData implements CommandLineRunner {
 
         User u2 = new User("shaneslone2", "test", "test@test.com", "Shane", "Slone");
         u2.getRoles().add(new UserRoles(u2, r2));
-        u2.setHousehold(h1);
         userService.save(u2);
 
     }

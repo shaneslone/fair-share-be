@@ -59,4 +59,14 @@ public class Household extends Auditable{
     public void setHouseholdKey(String householdKey) {
         this.householdKey = householdKey;
     }
+
+    @Override
+    public String toString() {
+        return "Household{" +
+                "householdid=" + householdid +
+                ", householdKey='" + householdKey + '\'' +
+                ", users=" + users +
+                ", monthlyBills=" + monthlyBills +
+                '}';
+    }
 }
