@@ -29,4 +29,5 @@ public interface HelperFunctions
      */
     boolean isAuthorizedToMakeChange(String username);
     boolean isHouseholdMember(Set<User> householdMembers);
+    String generateHouseholdKey();
 }

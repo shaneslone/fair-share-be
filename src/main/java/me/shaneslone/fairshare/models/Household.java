@@ -3,6 +3,7 @@ package me.shaneslone.fairshare.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,9 @@ public class Household extends Auditable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long householdid;
+
+    @NotNull
+    private String householdKey;
 
     @OneToMany(mappedBy = "household", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "household", allowSetters = true)
@@ -46,5 +50,13 @@ public class Household extends Auditable{
 
     public void setMonthlyBills(Set<MonthlyBill> monthlyBills) {
         this.monthlyBills = monthlyBills;
+    }
+
+    public String getHouseholdKey() {
+        return householdKey;
+    }
+
+    public void setHouseholdKey(String householdKey) {
+        this.householdKey = householdKey;
     }
 }

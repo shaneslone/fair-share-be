@@ -53,6 +53,7 @@ public class HouseholdServiceImpl implements HouseholdService {
                     .orElseThrow(() -> new ResourceNotFoundException("Household id " + household.getHouseholdid() + " not found!"));
             newHousehold.setHouseholdid(household.getHouseholdid());
         }
+        newHousehold.setHouseholdKey(household.getHouseholdKey());
         newHousehold = householdRepository.save(newHousehold);
         for(User u : household.getUsers()){
             User addUser = userService.findByUserId(u.getUserId());

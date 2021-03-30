@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 import java.util.Calendar;
 
@@ -27,6 +29,9 @@ public class SeedData implements CommandLineRunner {
     @Autowired
     private HouseholdService householdService;
 
+    @Autowired
+    private HelperFunctions helperFunctions;
+
     @Transactional
     @Override
     public void run(String... args) throws Exception {
@@ -35,6 +40,8 @@ public class SeedData implements CommandLineRunner {
         monthlyBillService.deleteAll();
         billService.deleteAll();
         householdService.deleteAll();
+
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         Role r1 = new Role("admin");
         Role r2 = new Role("user");
@@ -68,12 +75,15 @@ public class SeedData implements CommandLineRunner {
 
 
         Household h1 = new Household();
+        h1.setHouseholdKey(helperFunctions.generateHouseholdKey());
         h1.getMonthlyBills().add(mb1);
         h1 = householdService.save(h1);
         u1.setHousehold(h1);
         userService.save(u1);
 
         User u2 = new User("shaneslone2", "test", "test@test.com", "Shane", "Slone");
+        u2.getRoles().add(new UserRoles(u2, r2));
+        u2.setHousehold(h1);
         userService.save(u2);
 
     }
