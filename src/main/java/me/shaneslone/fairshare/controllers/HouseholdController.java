@@ -2,6 +2,7 @@ package me.shaneslone.fairshare.controllers;
 
 import me.shaneslone.fairshare.models.Household;
 import me.shaneslone.fairshare.models.User;
+import me.shaneslone.fairshare.services.HelperFunctions;
 import me.shaneslone.fairshare.services.HouseholdService;
 import me.shaneslone.fairshare.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,9 @@ public class HouseholdController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private HelperFunctions helperFunctions;
+
     @GetMapping(value = "/households", produces = "application/json")
     public ResponseEntity<?> listAllHouseholds(){
         List<Household> households = householdService.findAll();
@@ -38,14 +42,18 @@ public class HouseholdController {
         return new ResponseEntity<>(household, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/household", consumes = "application/json", produces = "application/json")
-    public  ResponseEntity<?> addNewHousehold(@Valid @RequestBody Household newHousehold){
+    @PostMapping(value = "/household", produces = "application/json")
+    public  ResponseEntity<?> addNewHousehold(Authentication authentication){
+        User user = userService.findByName(authentication.getName());
+        Household newHousehold = new Household();
         newHousehold.setHouseholdid(0);
+        newHousehold.setHouseholdKey(helperFunctions.generateHouseholdKey());
+        newHousehold.getUsers().add(user);
         newHousehold = householdService.save(newHousehold);
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newHouseholdURI = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{householdid}")
-                .buildAndExpand()
+                .buildAndExpand(newHousehold.getHouseholdid())
                 .toUri();
         responseHeaders.setLocation(newHouseholdURI);
         return new ResponseEntity<>(newHousehold, responseHeaders, HttpStatus.OK);
