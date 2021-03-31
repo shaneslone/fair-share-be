@@ -64,7 +64,8 @@ public class HouseholdServiceImpl implements HouseholdService {
         }
         newHousehold.setHouseholdKey(household.getHouseholdKey());
        for (User u : household.getUsers()){
-           u = userService.findByUserId(u.getUserId());
+           u.setHousehold(newHousehold);
+           u = userService.save(u);
            newHousehold.getUsers().add(u);
        }
         for(MonthlyBill mb : household.getMonthlyBills()){
