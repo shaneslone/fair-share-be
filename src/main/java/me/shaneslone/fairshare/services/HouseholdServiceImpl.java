@@ -56,7 +56,9 @@ public class HouseholdServiceImpl implements HouseholdService {
 
     @Override
     public Household save(Household household) {
+        System.out.println(household);
         Household newHousehold = new Household();
+
         if(household.getHouseholdid() != 0){
             householdRepository.findById(household.getHouseholdid())
                     .orElseThrow(() -> new ResourceNotFoundException("Household id " + household.getHouseholdid() + " not found!"));
@@ -64,13 +66,15 @@ public class HouseholdServiceImpl implements HouseholdService {
         }
         newHousehold.setHouseholdKey(household.getHouseholdKey());
 
-        newHousehold = householdRepository.save(newHousehold);
+        if(newHousehold.getHouseholdid() == 0){
+            newHousehold = householdRepository.save(newHousehold);
+        }
 
-       for (User u : household.getUsers()){
-           u.setHousehold(newHousehold);
-           u = userService.save(u);
-           newHousehold.getUsers().add(u);
-       }
+        for (User u : household.getUsers()){
+            u.setHousehold(newHousehold);
+            u = userService.save(u);
+            newHousehold.getUsers().add(u);
+        }
         for(MonthlyBill mb : household.getMonthlyBills()){
             mb.setHousehold(newHousehold);
             mb = monthlyBillService.save(mb);

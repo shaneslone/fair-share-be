@@ -49,10 +49,13 @@ public class MonthlyBillServiceImpl implements MonthlyBillService{
                     .orElseThrow(() -> new ResourceNotFoundException("Monthly Bill Id " + monthlyBill.getMonthlybillid() + " not found!"));
             newMonthlyBill.setMonthlybillid(monthlyBill.getMonthlybillid());
         }
-       newMonthlyBill.setDate(monthlyBill.getDate());
+        newMonthlyBill.setDate(monthlyBill.getDate());
         newMonthlyBill.setHousehold(monthlyBill.getHousehold());
 
-        newMonthlyBill = monthlyBillRepository.save(newMonthlyBill);
+        if(newMonthlyBill.getMonthlybillid() == 0){
+            newMonthlyBill = monthlyBillRepository.save(newMonthlyBill);
+        }
+
 
         for(Bill b : monthlyBill.getBills()){
             b.setMonthlyBill(newMonthlyBill);

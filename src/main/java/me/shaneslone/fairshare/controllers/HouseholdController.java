@@ -45,17 +45,20 @@ public class HouseholdController {
     @PostMapping(value = "/household", produces = "application/json")
     public  ResponseEntity<?> addNewHousehold(Authentication authentication){
         User user = userService.findByName(authentication.getName());
+
         Household newHousehold = new Household();
         newHousehold.setHouseholdid(0);
         newHousehold.setHouseholdKey(helperFunctions.generateHouseholdKey());
         newHousehold.getUsers().add(user);
         newHousehold = householdService.save(newHousehold);
+
         HttpHeaders responseHeaders = new HttpHeaders();
         URI newHouseholdURI = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{householdid}")
                 .buildAndExpand(newHousehold.getHouseholdid())
                 .toUri();
         responseHeaders.setLocation(newHouseholdURI);
+
         return new ResponseEntity<>(newHousehold, responseHeaders, HttpStatus.OK);
     }
 
@@ -68,8 +71,9 @@ public class HouseholdController {
 
     @PutMapping(value = "/household/{householdkey}/adduser", produces = "application/json")
     public ResponseEntity<?> addUserToHousehold(@PathVariable String householdkey, Authentication authentication){
-        Household household = householdService.findByHouseholdKey(householdkey);
         User user = userService.findByName(authentication.getName());
+
+        Household household = householdService.findByHouseholdKey(householdkey);
         household.getUsers().add(user);
         household = householdService.save(household);
         return new ResponseEntity<>(household, HttpStatus.OK);
